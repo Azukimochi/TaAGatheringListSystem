@@ -344,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4159821910268526156}
   m_Layer: 0
-  m_Name: SaTGatheringInfoSys 1
+  m_Name: SaTGatheringInfoSys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1646,7 +1646,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4481115172102621508}
   m_HandleRect: {fileID: 4481115172102621531}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4481115170857840129}
   m_HandleRect: {fileID: 4481115170857840128}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4312,11 +4312,11 @@ MonoBehaviour:
   m_Content: {fileID: 4481115172089012106}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 0.1
   m_Viewport: {fileID: 4481115172053079211}
   m_HorizontalScrollbar: {fileID: 4481115171251528294}
   m_VerticalScrollbar: {fileID: 4481115171142841607}

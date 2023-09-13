@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using PlasticPipe.Server;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +6,6 @@ using VRC.SDK3.Data;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
 using VRC.Udon;
-using VRC.Udon.Wrapper.Modules;
-using Object = System.Object;
 
 namespace io.github.Azukimochi
 {
