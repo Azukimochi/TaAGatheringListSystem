@@ -11,15 +11,24 @@ using Object = System.Object;
 
 namespace io.github.Azukimochi
 {
+    enum Week
+    {
+        日曜日,
+        月曜日,
+        火曜日,
+        水曜日,
+        木曜日,
+        金曜日,
+        土曜日
+    }
     public class GatheringListSystem : UdonSharpBehaviour
     {
         [SerializeField] private VRCUrl _URL;
         [SerializeField] private GameObject _button;
-        [SerializeField] private Text[] _text;
-        [SerializeField] private RectTransform form;
         [SerializeField] private Scrollbar bar;
         
-        private DataToken data;
+        private DataList dataList;
+        private DataList buttonList;
 
         private int count = 0;
         private float margin = 18.0f;
@@ -32,12 +41,7 @@ namespace io.github.Azukimochi
             if (String.IsNullOrEmpty(_URL.ToString()))
                 Debug.Log("Error URL is Empty");
             
-            for (int i = 1; i < 10; i++)
-            {
-                GameObject button = GameObject.Instantiate(_button, _button.transform.parent);
-                button.name = i.ToString();
-                button.SetActive(true);
-            }
+            SelectWeek(0);
         }
 
         public override void Interact()
@@ -45,13 +49,35 @@ namespace io.github.Azukimochi
 
         }
 
+        public void SelectWeek(int id)
+        {
+            buttonList = new DataList();
+            
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                var jsonData = dataList[i].DataDictionary;
+                
+                if (jsonData.TryGetValue("曜日", out var dWeek))
+                {
+                    if (dWeek.Equals((Week)id)) 
+                    {
+                        GameObject button = GameObject.Instantiate(_button, _button.transform.parent);
+                        button.name = buttonList.Count.ToString();
+                        button.SetActive(true);
+                    }
+                    
+                }
+                Debug.Log(dWeek.String);
+            }
+        }
+
         public void SelectData(int id)
         {
             var TEXT = "\n";
             
-            Debug.Log($"DataCount:{data.DataList.Count}");
+            Debug.Log($"DataCount:{dataList.Count}");
 
-            DataList list = data.DataList;
+            DataList list = dataList;
 
             int month = 0;
             int day = 0;
@@ -98,10 +124,10 @@ namespace io.github.Azukimochi
 
         public override void OnStringLoadSuccess(IVRCStringDownload result)
         {
-            if (VRCJson.TryDeserializeFromJson(result.Result, out data))
+            if (VRCJson.TryDeserializeFromJson(result.Result, out var data))
             {
                 Debug.Log("Load Success");
-                this.data = data;
+                this.dataList = data.DataList;
             }
             else
             {

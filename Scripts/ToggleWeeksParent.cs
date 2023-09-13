@@ -1,4 +1,5 @@
 ﻿
+using io.github.Azukimochi;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,12 @@ public class ToggleWeeksParent : UdonSharpBehaviour
 {
 
     [SerializeField] private GameObject[] weeks;
+    [SerializeField] private GatheringListSystem parent;
     
     
     void Start()
     {
-        
+        weeks[0].GetComponent<Button>().image.color = Color.gray;
     }
 
     public void OnClicked(int id)
@@ -32,5 +34,6 @@ public class ToggleWeeksParent : UdonSharpBehaviour
             else
                 button.image.color = Color.black;
         }
+        parent.SelectWeek(id);
     }
 }
