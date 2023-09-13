@@ -7,7 +7,7 @@ using VRC.Udon;
 public class ToggleWeeksButton: UdonSharpBehaviour
 {
     [SerializeField] private int id;
-    [SerializeField] private ToggleWeeksParent pareint;
+    [SerializeField] private ToggleWeeksParent parent;
     
     void Start()
     {
@@ -15,7 +15,7 @@ public class ToggleWeeksButton: UdonSharpBehaviour
     }
     public void Pressed()
     {
-        Debug.Log("Clicked");
-        pareint.OnClicked(id);
+        Debug.Log($"ClickedWeek{id}");
+        parent.OnClicked(id);
     }
 }
