@@ -15,7 +15,7 @@ public class ButtonGatheringData : UdonSharpBehaviour
     public void Pressed()
     {
         int id = int.Parse(this.name);
-        Debug.Log($"ClickedWeek{id}");
+        Debug.Log($"ClickedButton{id}");
         parent.SelectData(id);
     }
 }
