@@ -20,7 +20,7 @@ public class ToggleWeeksParent : UdonSharpBehaviour
 
     public void OnClicked(int id)
     {
-        if (weeks.Length != 7)
+        if (weeks.Length != 8)
             return;
         
         for (int i = 0; i < weeks.Length; i++)
