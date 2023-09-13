@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5136146375e9a0a498a72a0091b40cc1, type: 3}
   m_Name: io.github.Azukimochi.GatheringListSystem
   m_EditorClassIdentifier: 
-  sourceAssembly: {fileID: 0}
+  sourceAssembly: {fileID: 5897886265953266890, guid: 78fa6693d272f8843ab7bab96ee3a8dd,
+    type: 3}
