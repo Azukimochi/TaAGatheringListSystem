@@ -22,7 +22,7 @@ JSONデータ作成
  - のりちゃん(noricha-vr)  
 
 **Special Thanks**  
- - Contributerの皆様
+ - Contributorの皆様
 
 ## 連絡先  
 Azukimochi [X:Twitter](https://twitter.com/azukimochi25)
