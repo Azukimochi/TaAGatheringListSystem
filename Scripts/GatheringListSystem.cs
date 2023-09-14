@@ -91,7 +91,7 @@ namespace io.github.Azukimochi
                     var info = obj.GetComponent<EventInfo>();
                     info.Parse(data.DataList[i].DataDictionary);
                     obj.name = info.EventName;
-                    var text = obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} {info.HoldingCycle}
+                    obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} {info.HoldingCycle}
 {info.EventName}
 主催・副主催：{info.Organizers}";
 
@@ -121,21 +121,6 @@ namespace io.github.Azukimochi
         public override void OnStringLoadError(IVRCStringDownload result)
         {
             Debug.Log(result.Error);
-        }
-
-        public static int CountChar(string s, string target)
-        {
-            int at;
-            int start = 0;
-            int rep = 0;
-            while (true)
-            {
-                at = s.IndexOf(target, start, StringComparison.Ordinal);
-                if (at == -1) break;
-                start = at + 1;
-                rep++;
-            }
-            return rep;
         }
     }
 }
