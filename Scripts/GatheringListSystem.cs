@@ -6,26 +6,29 @@ using VRC.SDK3.Data;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
 using VRC.Udon;
+using YamlDotNet.Core.Tokens;
 
 namespace io.github.Azukimochi
 {
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class GatheringListSystem : UdonSharpBehaviour
     {
         [SerializeField] private VRCUrl _URL;
         [SerializeField] private GameObject _button;
-        [SerializeField] private Scrollbar bar;
+
+        [SerializeField] private Week _initialDisplayWeek;
+
         [Space(15)]
         [SerializeField] private InputField _joinInfo;
         [SerializeField] private InputField _Discord;
         [SerializeField] private InputField _X;
         [SerializeField] private InputField _Tag;
         
-        private DataList dataList;
-        private DataList infoList = new DataList();
-        private DataList buttonList = new DataList();
+        private GameObject[] _loadedDatas;
+        private Week _currentWeek = Week.None;
 
-        private int count = 0;
-        private float margin = 18.0f;
+        private bool _isLoaded;
+        public bool IsLoaded => _isLoaded;
 
         void Start()
         {
@@ -42,89 +45,28 @@ namespace io.github.Azukimochi
 
         }
 
-        public void SelectWeek(int id)
+        public void SelectWeek(Week week)
         {
-            InfoToClear();
-            
-            for (int i = 0; i < buttonList.Count; i++)
-            {
-                //GameObject obj = buttonList[i].Reference as GameObject;
-                GameObject obj = (GameObject) buttonList[i].Reference;
-                Destroy(obj);
-            }
-            for(int i = 0; i < infoList.Count; i++)
-            {
-                infoList.RemoveAt(i);
-            }
-            if (dataList == null)
-            {
-                Debug.Log("DataList is null");
+            if (week == _currentWeek)
                 return;
-            }
-            buttonList.Clear();
-            infoList.Clear();
-            
-            for (int i = 0; i < dataList.Count; i++)
+            _currentWeek = week;
+
+            InfoToClear();
+            foreach(var obj in _loadedDatas)
             {
-                var jsonData = dataList[i].DataDictionary;
-                
-                if (jsonData.TryGetValue("曜日", out var dWeek))
-                {
-                    if (dWeek.String == Id2Week(id))
-                    {
-                        string Text = "";
-                        
-                        GameObject button = GameObject.Instantiate(_button, _button.transform.parent);
-                        button.name = buttonList.Count.ToString();
-                        button.SetActive(true);
-                        buttonList.Add(button);
-                        
-                        infoList.Add(dataList[i]);
-                        
-                        if (jsonData.TryGetValue("開始時刻", out var dData))
-                        {
-                            Text += dData;
-                        }
-                        if(jsonData.TryGetValue("開催周期", out var eCycle))
-                        {
-                            Text += $" {eCycle}";
-                        }
-                        if (jsonData.TryGetValue("イベント名", out var eName))
-                        {
-                            Text += $"\n{eName}";
-                        }
-                        
-                        if(jsonData.TryGetValue("主催・副主催", out var eHost))
-                        {
-                            Text += $"\n主催・副主催：{eHost}";
-                        }
-                        button.GetComponentInChildren<Text>().text = Text;
-                    }
-                }
+                var info = obj.GetComponent<EventInfo>();
+                obj.SetActive(info.Week == week);
             }
         }
 
-        public void SelectData(int id)
+        public void ShowEventInfo(EventInfo info)
         {
-            var jsonData = infoList[id].DataDictionary;
-            
-            if(jsonData.TryGetValue("Join先", out var join))
-            {
-                _joinInfo.text = join.String;
-            }
-            if(jsonData.TryGetValue("Discord", out var discord))
-            {
-                _Discord.text = discord.String;
-            }
-            if(jsonData.TryGetValue("Twitter", out var twitter))
-            {
-                _X.text = twitter.String;
-            }
-            if(jsonData.TryGetValue("ハッシュタグ", out var tag))
-            {
-                _Tag.text = tag.String;
-            }
+            _joinInfo.text = info.JoinTo;
+            _Discord.text = info.Discord;
+            _X.text = info.Twitter;
+            _Tag.text = info.HashTag;
         }
+
         public void InfoToClear()
         {
             _joinInfo.text = "";
@@ -138,16 +80,42 @@ namespace io.github.Azukimochi
             if (VRCJson.TryDeserializeFromJson(result.Result, out var data))
             {
                 Debug.Log("Load Success");
-                this.dataList = data.DataList;
-                
                 _button.SetActive(false);
-                SelectWeek(0);
+                _isLoaded = true;
+
+                ClearLoadedData();
+                _loadedDatas = new GameObject[data.DataList.Count];
+                for(int i = 0; i < _loadedDatas.Length; i++)
+                {
+                    var obj = Instantiate(_button, _button.transform.parent);
+                    var info = obj.GetComponent<EventInfo>();
+                    info.Parse(data.DataList[i].DataDictionary);
+                    obj.name = info.EventName;
+                    var text = obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} {info.HoldingCycle}
+{info.EventName}
+主催・副主催：{info.Organizers}";
+
+                    _loadedDatas[i] = obj;
+                }
+
+                GetComponentInChildren<ToggleWeeksParent>().OnClicked(_initialDisplayWeek);
             }
             else
             {
                 Debug.Log("Load Failed");
             }
 
+        }
+
+        private void ClearLoadedData()
+        {
+            if (_loadedDatas == null)
+                return;
+
+            foreach(var obj in _loadedDatas)
+            {
+                Destroy(obj);
+            }
         }
 
         public override void OnStringLoadError(IVRCStringDownload result)
@@ -168,21 +136,6 @@ namespace io.github.Azukimochi
                 rep++;
             }
             return rep;
-        }
-
-        private string Id2Week(int id)
-        {
-            switch (id) 
-            {
-                case 0: return "日曜日";
-                case 1: return "月曜日";
-                case 2: return "火曜日";
-                case 3: return "水曜日";
-                case 4: return "木曜日";
-                case 5: return "金曜日";
-                case 6: return "土曜日";
-                default: return "その他";
-            }
         }
     }
 }

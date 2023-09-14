@@ -9,32 +9,32 @@ using VRC.Udon;
 
 namespace io.github.Azukimochi
 {
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class ToggleWeeksParent : UdonSharpBehaviour
     {
-
-        [SerializeField] private GameObject[] weeks;
+        private Button[] weeks;
         [SerializeField] private GatheringListSystem parent;
 
 
         void Start()
         {
-            weeks[0].GetComponent<Button>().image.color = Color.gray;
+            weeks = GetComponentsInChildren<Button>();
         }
 
-        public void OnClicked(int id)
+        public void OnClicked(Week week)
         {
             if (weeks.Length != 8)
                 return;
 
             for (int i = 0; i < weeks.Length; i++)
             {
-                Button button = weeks[i].GetComponent<Button>();
-                if (i == id)
+                Button button = weeks[i];
+                if (i == (int)week)
                     button.image.color = Color.gray;
                 else
                     button.image.color = Color.black;
             }
-            parent.SelectWeek(id);
+            parent.SelectWeek(week);
         }
     }
 }
