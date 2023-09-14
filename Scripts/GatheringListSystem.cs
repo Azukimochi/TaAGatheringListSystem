@@ -124,6 +124,7 @@ namespace io.github.Azukimochi
             {
                 _Tag.text = tag.String;
             }
+
         }
         public void InfoToClear()
         {

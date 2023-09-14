@@ -2060,7 +2060,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3416,7 +3416,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 4481115171948082598}
   _URL:
-    url: https://raw.githubusercontent.com/Azukimochi/SaAGatheringListSystem/main/TestData
+    url: https://noricha-vr.github.io/toGithubPagesJson/sample.json
   _button: {fileID: 4481115171289676236}
   bar: {fileID: 4481115171142841607}
   _joinInfo: {fileID: 4481115172085574067}
