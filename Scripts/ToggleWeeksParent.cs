@@ -6,31 +6,35 @@ using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
 
-public class ToggleWeeksParent : UdonSharpBehaviour
+
+namespace io.github.Azukimochi
 {
-
-    [SerializeField] private GameObject[] weeks;
-    [SerializeField] private GatheringListSystem parent;
-    
-    
-    void Start()
+    public class ToggleWeeksParent : UdonSharpBehaviour
     {
-        weeks[0].GetComponent<Button>().image.color = Color.gray;
-    }
 
-    public void OnClicked(int id)
-    {
-        if (weeks.Length != 8)
-            return;
-        
-        for (int i = 0; i < weeks.Length; i++)
+        [SerializeField] private GameObject[] weeks;
+        [SerializeField] private GatheringListSystem parent;
+
+
+        void Start()
         {
-            Button button = weeks[i].GetComponent<Button>();
-            if (i == id)
-                button.image.color = Color.gray;
-            else
-                button.image.color = Color.black;
+            weeks[0].GetComponent<Button>().image.color = Color.gray;
         }
-        parent.SelectWeek(id);
+
+        public void OnClicked(int id)
+        {
+            if (weeks.Length != 8)
+                return;
+
+            for (int i = 0; i < weeks.Length; i++)
+            {
+                Button button = weeks[i].GetComponent<Button>();
+                if (i == id)
+                    button.image.color = Color.gray;
+                else
+                    button.image.color = Color.black;
+            }
+            parent.SelectWeek(id);
+        }
     }
 }
