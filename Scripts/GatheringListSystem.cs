@@ -24,8 +24,6 @@ namespace io.github.Azukimochi
         private DataList infoList = new DataList();
         private DataList buttonList = new DataList();
 
-        private int count = 0;
-        private float margin = 18.0f;
 
         void Start()
         {
@@ -154,21 +152,6 @@ namespace io.github.Azukimochi
         public override void OnStringLoadError(IVRCStringDownload result)
         {
             Debug.Log(result.Error);
-        }
-
-        public static int CountChar(string s, string target)
-        {
-            int at;
-            int start = 0;
-            int rep = 0;
-            while (true)
-            {
-                at = s.IndexOf(target, start, StringComparison.Ordinal);
-                if (at == -1) break;
-                start = at + 1;
-                rep++;
-            }
-            return rep;
         }
 
         private string Id2Week(int id)
