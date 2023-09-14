@@ -1,21 +1,18 @@
-﻿
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
 
-public class ToggleWeeksButton: UdonSharpBehaviour
+namespace io.github.Azukimochi
 {
-    [SerializeField] private int id;
-    [SerializeField] private ToggleWeeksParent parent;
-    
-    void Start()
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    public class ToggleWeeksButton : UdonSharpBehaviour
     {
-        
-    }
-    public void Pressed()
-    {
-        Debug.Log($"ClickedWeek{id}");
-        parent.OnClicked(id);
+        [SerializeField] private Week Week;
+        [SerializeField] private ToggleWeeksParent parent;
+
+        public void Pressed()
+        {
+            Debug.Log($"ClickedWeek {Week}");
+            parent.OnClicked(Week);
+        }
     }
 }

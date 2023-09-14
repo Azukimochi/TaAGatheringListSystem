@@ -1,36 +1,35 @@
-﻿
-using io.github.Azukimochi;
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
-using VRC.SDKBase;
-using VRC.Udon;
 
-public class ToggleWeeksParent : UdonSharpBehaviour
+namespace io.github.Azukimochi
 {
-
-    [SerializeField] private GameObject[] weeks;
-    [SerializeField] private GatheringListSystem parent;
-    
-    
-    void Start()
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    public class ToggleWeeksParent : UdonSharpBehaviour
     {
-        weeks[0].GetComponent<Button>().image.color = Color.gray;
-    }
+        private Button[] weeks;
+        [SerializeField] private GatheringListSystem parent;
 
-    public void OnClicked(int id)
-    {
-        if (weeks.Length != 8)
-            return;
-        
-        for (int i = 0; i < weeks.Length; i++)
+
+        void Start()
         {
-            Button button = weeks[i].GetComponent<Button>();
-            if (i == id)
-                button.image.color = Color.gray;
-            else
-                button.image.color = Color.black;
+            weeks = GetComponentsInChildren<Button>();
         }
-        parent.SelectWeek(id);
+
+        public void OnClicked(Week week)
+        {
+            if (weeks.Length != 8)
+                return;
+
+            for (int i = 0; i < weeks.Length; i++)
+            {
+                Button button = weeks[i];
+                if (i == (int)week)
+                    button.image.color = Color.gray;
+                else
+                    button.image.color = Color.black;
+            }
+            parent.SelectWeek(week);
+        }
     }
 }
