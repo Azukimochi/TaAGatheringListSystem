@@ -6,7 +6,6 @@ using VRC.SDK3.Data;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
 using VRC.Udon;
-using YamlDotNet.Core.Tokens;
 
 namespace io.github.Azukimochi
 {

@@ -1,10 +1,5 @@
-﻿
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
-using UnityEngine.Serialization;
-using VRC.SDKBase;
-using VRC.Udon;
-
 
 namespace io.github.Azukimochi
 {

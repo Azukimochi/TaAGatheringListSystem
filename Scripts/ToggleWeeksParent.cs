@@ -1,11 +1,6 @@
-﻿
-using io.github.Azukimochi;
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
-using VRC.SDKBase;
-using VRC.Udon;
-
 
 namespace io.github.Azukimochi
 {
