@@ -5,7 +5,8 @@
 [元データ](https://noricha-vr.github.io/toGithubPagesJson/sample.json)
 
 ## 設置方法  
-プロジェクト内に存在するPrefabをワールドに設置してサイズ調整を行ってください
+
+アセットを[ダウンロード](https://github.com/Azukimochi/TaAGatheringListSystem/releases)して、プロジェクト内に存在するPrefabをワールドに設置してサイズ調整を行ってください
 
 ## 情報の更新方法
 元JSONデータが更新されると動的に表示内容が更新されるため設置者側の負担はございません。  
