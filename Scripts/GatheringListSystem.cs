@@ -31,12 +31,16 @@ namespace io.github.Azukimochi
 
         void Start()
         {
+            InitLoadJson();
+        }
+
+        public void InitLoadJson()
+        {
             Debug.Log("load start");
             VRCStringDownloader.LoadUrl(_URL, this.GetComponent<UdonBehaviour>());
 
             if (String.IsNullOrEmpty(_URL.ToString()))
                 Debug.Log("Error URL is Empty");
-            
         }
 
         public override void Interact()
@@ -98,6 +102,7 @@ namespace io.github.Azukimochi
                 }
 
                 GetComponentInChildren<ToggleWeeksParent>().OnClicked(_initialDisplayWeek);
+                SelectWeek(Week.Sunday);
             }
             else
             {
