@@ -44,6 +44,11 @@ namespace io.github.Azukimochi
         /// Join先
         /// </summary>
         public string JoinTo;
+        
+        /// <summary>
+        /// イベント紹介
+        /// </summary>
+        public string Description;
 
         public string Discord;
         public string Twitter;
@@ -71,6 +76,8 @@ namespace io.github.Azukimochi
             Twitter = dictionary["Twitter"].String;
 
             HashTag = dictionary["ハッシュタグ"].String;
+            
+            Description = dictionary["イベント紹介"].String;
         }
 
         private static Week Str2Week(string s)
