@@ -22,7 +22,7 @@ namespace io.github.Azukimochi
         [SerializeField] private InputField _Discord;
         [SerializeField] private InputField _X;
         [SerializeField] private InputField _Tag;
-        [SerializeField] private InputField _Description;
+        [SerializeField] private Text _Description;
         
         private GameObject[] _loadedDatas;
         private Week _currentWeek = Week.None;
@@ -78,7 +78,7 @@ namespace io.github.Azukimochi
             _Discord.text = "Copy from here";
             _X.text = "Copy from here";
             _Tag.text = "Copy from here";
-            _Description.text = "Copy from here";
+            _Description.text = "Description";
         }
 
         public override void OnStringLoadSuccess(IVRCStringDownload result)
