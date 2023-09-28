@@ -6,6 +6,9 @@
 
 ## 設置方法  
 
+**動作条件**
+- VRChat SDK Version 3.2.0 以上 
+
 アセットを[ダウンロード](https://github.com/Azukimochi/TaAGatheringListSystem/releases)して、プロジェクト内に存在するPrefabをワールドに設置してサイズ調整を行ってください
 
 ## 情報の更新方法
