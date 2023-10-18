@@ -34,7 +34,7 @@ namespace io.github.Azukimochi
 
                 if (i == (int)today)
                 {
-                    button.image.color = Color.blue;
+                    button.image.color = new Color(0.3f, 0.3f, 0.3f);
                 }
             }
 
