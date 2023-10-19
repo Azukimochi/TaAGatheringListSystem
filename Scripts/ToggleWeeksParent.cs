@@ -12,6 +12,10 @@ namespace io.github.Azukimochi
         private Button[] weeks;
         [SerializeField] private GatheringListSystem parent;
 
+        [SerializeField] private Color _defaultColor = Color.black;
+        [SerializeField] private Color _selectedColor = Color.gray;
+        [SerializeField] private Color _todayColor = new Color(0.3f, 0.3f, 0.3f);
+
 
         void Start()
         {
@@ -27,15 +31,15 @@ namespace io.github.Azukimochi
             for (int i = 0; i < weeks.Length; i++)
             {
                 Button button = weeks[i];
-                if (i == (int)week)
-                    button.image.color = Color.gray;
-                else
-                    button.image.color = Color.black;
-
+                
                 if (i == (int)today)
-                {
-                    button.image.color = new Color(0.3f, 0.3f, 0.3f);
-                }
+                    button.image.color = _todayColor;
+
+                else if (i == (int)week)
+                    button.image.color = _selectedColor;
+                
+                else
+                    button.image.color = _defaultColor;
             }
 
             parent.SelectWeek(week);
