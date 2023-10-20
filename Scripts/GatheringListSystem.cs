@@ -2,6 +2,7 @@
 using System.Data;
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using VRC.SDK3.Data;
 using VRC.SDK3.StringLoading;
@@ -24,7 +25,7 @@ namespace io.github.Azukimochi
         [SerializeField] private Text _Description;
         
         [Space(height:15)] 
-        [SerializeField] int _UpdateInterval = 5;
+        [SerializeField] int _UpdateIntervalMinutes = 5;
         [SerializeField] bool _isDebug = false;
         [SerializeField] private string _DebugTime;
         
@@ -45,9 +46,9 @@ namespace io.github.Azukimochi
 
         void Update()
         {
-            if (LastUpdate.AddMinutes(_UpdateInterval) < DateTime.Now)
+            if (LastUpdate.AddMinutes(_UpdateIntervalMinutes) < DateTime.Now)
             {
-                Debug.Log($"[TaAG Sys] Update interval {_UpdateInterval}min");
+                Debug.Log($"[TaAG Sys] Update interval {_UpdateIntervalMinutes}min");
                 if (!_isDebug)
                 {
                     _toggleWeeksParent.UpdateWeekFromToday();
