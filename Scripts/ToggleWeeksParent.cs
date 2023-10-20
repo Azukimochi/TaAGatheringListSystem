@@ -52,7 +52,7 @@ namespace io.github.Azukimochi
         }
         public Week getWeekFromToday()
         {
-            var toDayOfWeek = DateTime.Now.DayOfWeek;
+            var toDayOfWeek = Util.getJST().DayOfWeek;
 
             switch (toDayOfWeek)
             {
