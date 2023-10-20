@@ -16,6 +16,7 @@ namespace io.github.Azukimochi
         [SerializeField] private Color _selectedColor = Color.gray;
         [SerializeField] private Color _todayColor = new Color(0.3f, 0.3f, 0.3f);
 
+        private Week selectedWeek = Week.None;
 
         void Start()
         {
@@ -24,7 +25,9 @@ namespace io.github.Azukimochi
 
         public void OnClicked(Week week)
         {
-            var today = getWeekFromToday();
+            selectedWeek = week;
+            
+            var today = getWeekFromToday(Util.getJST().DayOfWeek);
             if (weeks.Length != 8)
                 return;
 
@@ -41,20 +44,41 @@ namespace io.github.Azukimochi
                 else
                     button.image.color = _defaultColor;
             }
-
             parent.SelectWeek(week);
         }
+        public void UpdateWeekFromToday()
+        {
+            DateTime time = Util.getJST();
+            UpdateWeekFromToday(time);
+        }
+        public void UpdateWeekFromToday(DateTime time)
+        {
+            var today = time.DayOfWeek;
+            if (weeks.Length != 8)
+                return;
 
+            for (int i = 0; i < weeks.Length; i++)
+            {
+                Button button = weeks[i];
+                
+                if (i == (int)today)
+                    button.image.color = _todayColor;
+
+                else if (i == (int)selectedWeek)
+                    button.image.color = _selectedColor;
+                
+                else
+                    button.image.color = _defaultColor;
+            }
+        }
         public void initDefaultSelectWeekOfDay()
         {
-            var week = getWeekFromToday();
+            var week = getWeekFromToday(Util.getJST().DayOfWeek);
             OnClicked(week);
         }
-        public Week getWeekFromToday()
+        public Week getWeekFromToday(DayOfWeek toDay)
         {
-            var toDayOfWeek = Util.getJST().DayOfWeek;
-
-            switch (toDayOfWeek)
+            switch (toDay)
             {
                 case DayOfWeek.Sunday:
                     return Week.Sunday;

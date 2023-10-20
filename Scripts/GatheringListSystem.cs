@@ -2,6 +2,7 @@
 using System.Data;
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using VRC.SDK3.Data;
 using VRC.SDK3.StringLoading;
@@ -16,24 +17,56 @@ namespace io.github.Azukimochi
         [SerializeField] private VRCUrl _URL;
         [SerializeField] private GameObject _button;
         [SerializeField] private ToggleWeeksParent _toggleWeeksParent;
-        [SerializeField] private Week _initialDisplayWeek;
 
-        [Space(15)]
-        [SerializeField] private InputField _joinInfo;
+        [Space(15)] [SerializeField] private InputField _joinInfo;
         [SerializeField] private InputField _Discord;
         [SerializeField] private InputField _X;
         [SerializeField] private InputField _Tag;
         [SerializeField] private Text _Description;
         
+        [Space(height:15)] 
+        [SerializeField] int _UpdateIntervalMinutes = 5;
+        [SerializeField] bool _isDebug = false;
+        [SerializeField] private string _DebugTime;
+        
+        private Week _initialDisplayWeek;
         private GameObject[] _loadedDatas;
         private Week _currentWeek = Week.None;
-
         private bool _isLoaded;
-        public bool IsLoaded => _isLoaded;
+        
+
+        //定期実行なのでJSTじゃなくてOK.
+        private DateTime LastUpdate;
 
         void Start()
         {
             InitLoadJson();
+            LastUpdate = DateTime.Now;
+        }
+
+        void Update()
+        {
+            if (LastUpdate.AddMinutes(_UpdateIntervalMinutes) < DateTime.Now)
+            {
+                Debug.Log($"[TaAG Sys] Update interval {_UpdateIntervalMinutes}min");
+                if (!_isDebug)
+                {
+                    _toggleWeeksParent.UpdateWeekFromToday();
+                    LastUpdate = DateTime.Now;
+                }
+                else
+                {
+                    const string Format = "yyyy-MM-dd HH:mm:ss";
+                    DateTime newValue;
+                    if (DateTime.TryParse(_DebugTime, out newValue))
+                    {
+                        Debug.Log(newValue.ToString(Format));
+                        Debug.Log(newValue);
+                        _toggleWeeksParent.UpdateWeekFromToday(newValue);
+                        LastUpdate = DateTime.Now;
+                    }
+                }
+            }
         }
 
         public void InitLoadJson()
@@ -57,7 +90,7 @@ namespace io.github.Azukimochi
             _currentWeek = week;
 
             InfoToClear();
-            foreach(var obj in _loadedDatas)
+            foreach (var obj in _loadedDatas)
             {
                 var info = obj.GetComponent<EventInfo>();
                 obj.SetActive(info.Week == week);
@@ -92,7 +125,7 @@ namespace io.github.Azukimochi
 
                 ClearLoadedData();
                 _loadedDatas = new GameObject[data.DataList.Count];
-                for(int i = 0; i < _loadedDatas.Length; i++)
+                for (int i = 0; i < _loadedDatas.Length; i++)
                 {
                     var obj = Instantiate(_button, _button.transform.parent);
                     var info = obj.GetComponent<EventInfo>();
@@ -112,7 +145,7 @@ namespace io.github.Azukimochi
             {
                 Debug.Log("Load Failed");
             }
-            
+
             //ロード完了後に初期表示曜日を設定
             //if Asyncに置き換え
             _toggleWeeksParent.initDefaultSelectWeekOfDay();
@@ -123,7 +156,7 @@ namespace io.github.Azukimochi
             if (_loadedDatas == null)
                 return;
 
-            foreach(var obj in _loadedDatas)
+            foreach (var obj in _loadedDatas)
             {
                 Destroy(obj);
             }
@@ -133,7 +166,11 @@ namespace io.github.Azukimochi
         {
             Debug.Log(result.Error);
         }
-        
-        
+
+        private void DebugLog(string message)
+        {
+            DateTime newValue;
+            
+        }
     }
 }
