@@ -3969,12 +3969,14 @@ MonoBehaviour:
     url: https://noricha-vr.github.io/toGithubPagesJson/sample.json
   _button: {fileID: 4481115171289676236}
   _toggleWeeksParent: {fileID: 4481115171083653884}
-  _initialDisplayWeek: 0
   _joinInfo: {fileID: 4481115172085574067}
   _Discord: {fileID: 4481115171323815858}
   _X: {fileID: 4481115171659011279}
   _Tag: {fileID: 4481115171003654313}
   _Description: {fileID: 920371561416351979}
+  _UpdateInterval: 5
+  _isDebug: 0
+  _DebugTime: 2023-10-19 18:00:00
 --- !u!114 &4481115171948082598
 MonoBehaviour:
   m_ObjectHideFlags: 0
