@@ -1727,6 +1727,9 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 4481115171083653885}
   parent: {fileID: 4481115171948082599}
+  _defaultColor: {r: 0, g: 0, b: 0, a: 1}
+  _selectedColor: {r: 1, g: 0.5518868, b: 0.5518868, a: 1}
+  _todayColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
 --- !u!114 &4481115171083653885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2358,8 +2361,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4481115170857840129}
   m_HandleRect: {fileID: 4481115170857840128}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3835,6 +3838,7 @@ MonoBehaviour:
   _URL:
     url: https://noricha-vr.github.io/toGithubPagesJson/sample.json
   _button: {fileID: 4481115171289676236}
+  _toggleWeeksParent: {fileID: 4481115171083653884}
   _initialDisplayWeek: 0
   _joinInfo: {fileID: 4481115172085574067}
   _Discord: {fileID: 4481115171323815858}

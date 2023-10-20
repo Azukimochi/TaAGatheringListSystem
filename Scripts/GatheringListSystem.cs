@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ namespace io.github.Azukimochi
     {
         [SerializeField] private VRCUrl _URL;
         [SerializeField] private GameObject _button;
-
+        [SerializeField] private ToggleWeeksParent _toggleWeeksParent;
         [SerializeField] private Week _initialDisplayWeek;
 
         [Space(15)]
@@ -111,7 +112,10 @@ namespace io.github.Azukimochi
             {
                 Debug.Log("Load Failed");
             }
-
+            
+            //ロード完了後に初期表示曜日を設定
+            //if Asyncに置き換え
+            _toggleWeeksParent.initDefaultSelectWeekOfDay();
         }
 
         private void ClearLoadedData()
@@ -129,5 +133,7 @@ namespace io.github.Azukimochi
         {
             Debug.Log(result.Error);
         }
+        
+        
     }
 }
