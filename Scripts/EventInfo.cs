@@ -1,4 +1,5 @@
-﻿using UdonSharp;
+﻿using System;
+using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
 
@@ -29,6 +30,11 @@ namespace io.github.Azukimochi
         /// 開始時刻
         /// </summary>
         public string StartTime;
+        
+        /// <summary>
+        /// 開催時間
+        /// </summary>
+        public TimeSpan HoldingTime;
 
         /// <summary>
         /// 開催周期
@@ -49,6 +55,8 @@ namespace io.github.Azukimochi
         /// イベント紹介
         /// </summary>
         public string Description;
+        
+        
 
         public string Discord;
         public string Twitter;
@@ -64,6 +72,9 @@ namespace io.github.Azukimochi
             EventName = dictionary["イベント名"].String;
 
             StartTime = dictionary["開始時刻"].String;
+            
+            HoldingTime = TimeSpan.FromHours(1);
+            // HoldingTime = TimeSpan.Parse(dictionary["開催時間"].String);
 
             HoldingCycle = dictionary["開催周期"].String;
 
@@ -78,6 +89,7 @@ namespace io.github.Azukimochi
             HashTag = dictionary["ハッシュタグ"].String;
             
             Description = dictionary["イベント紹介"].String;
+            
         }
 
         private static Week Str2Week(string s)

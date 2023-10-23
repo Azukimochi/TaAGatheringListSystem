@@ -2648,7 +2648,16 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: HoldingTime
+      Entry: 7
+      Data: System.TimeSpan, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
   _udonSharpBackingUdonBehaviour: {fileID: 3078612057044997021}
   Parent: {fileID: 4481115171948082599}
   Genre: 0
@@ -3974,7 +3983,8 @@ MonoBehaviour:
   _X: {fileID: 4481115171659011279}
   _Tag: {fileID: 4481115171003654313}
   _Description: {fileID: 920371561416351979}
-  _UpdateInterval: 5
+  _highlightColor: {r: 1, g: 0.6556604, b: 0.6981439, a: 1}
+  _UpdateIntervalMinutes: 5
   _isDebug: 0
   _DebugTime: 2023-10-19 18:00:00
 --- !u!114 &4481115171948082598

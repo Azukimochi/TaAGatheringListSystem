@@ -25,6 +25,9 @@ namespace io.github.Azukimochi
         [SerializeField] private Text _Description;
         
         [Space(height:15)] 
+        [SerializeField] private Color _highlightColor  = new Color(0.7f, 0.4f, 0.4f);
+        
+        [Space(height:15)] 
         [SerializeField] int _UpdateIntervalMinutes = 5;
         [SerializeField] bool _isDebug = false;
         [SerializeField] private string _DebugTime;
@@ -52,6 +55,7 @@ namespace io.github.Azukimochi
                 if (!_isDebug)
                 {
                     _toggleWeeksParent.UpdateWeekFromToday();
+                    highlightButton();
                     LastUpdate = DateTime.Now;
                 }
                 else
@@ -93,7 +97,30 @@ namespace io.github.Azukimochi
             foreach (var obj in _loadedDatas)
             {
                 var info = obj.GetComponent<EventInfo>();
-                obj.SetActive(info.Week == week);
+                
+                if (info.Week == week)
+                    obj.SetActive(true);
+                else
+                    obj.SetActive(false);
+            }
+        }
+        public void highlightButton() 
+        {
+            foreach (var obj in _loadedDatas)
+            {
+                var info = obj.GetComponent<EventInfo>();
+                String format = @"hh\:mm";
+                obj.GetComponentInChildren<Image>().color = Color.white;
+                
+                if (TimeSpan.TryParseExact(info.StartTime, format, null, out var startTime))
+                {
+                    var endTime = startTime.Add(info.HoldingTime);
+                    var currentTime = Util.getJST().TimeOfDay;
+
+                    if (info.Week == Util.getWeekFromTodayJST() && startTime < currentTime && currentTime < endTime)
+                        obj.GetComponentInChildren<Image>().color = _highlightColor;
+                    Debug.Log($"Onheld {info.EventName} {startTime} {endTime} {currentTime}");
+                }
             }
         }
 
@@ -125,6 +152,7 @@ namespace io.github.Azukimochi
 
                 ClearLoadedData();
                 _loadedDatas = new GameObject[data.DataList.Count];
+                
                 for (int i = 0; i < _loadedDatas.Length; i++)
                 {
                     var obj = Instantiate(_button, _button.transform.parent);
@@ -136,6 +164,24 @@ namespace io.github.Azukimochi
 主催・副主催：{info.Organizers}";
 
                     _loadedDatas[i] = obj;
+                }
+                
+                //デバッグ用
+                if (_isDebug)
+                {
+                    var newArray = new GameObject[_loadedDatas.Length + 1];
+                    Array.Copy(_loadedDatas, newArray, _loadedDatas.Length);
+                    _loadedDatas = newArray;
+                    
+                    var obj = Instantiate(_button, _button.transform.parent);
+                    var info = obj.GetComponent<EventInfo>();
+                    info.Week = Week.Monday;
+                    info.StartTime = "19:00";
+                    info.HoldingTime = TimeSpan.FromHours(1);
+                    obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} 1億年に一回
+                    デバッグ集会
+                    主催・副主催：誰？";
+                    _loadedDatas[_loadedDatas.Length - 1] = obj;
                 }
 
                 GetComponentInChildren<ToggleWeeksParent>().OnClicked(_initialDisplayWeek);
@@ -149,6 +195,7 @@ namespace io.github.Azukimochi
             //ロード完了後に初期表示曜日を設定
             //if Asyncに置き換え
             _toggleWeeksParent.initDefaultSelectWeekOfDay();
+            highlightButton();
         }
 
         private void ClearLoadedData()

@@ -27,7 +27,7 @@ namespace io.github.Azukimochi
         {
             selectedWeek = week;
             
-            var today = getWeekFromToday(Util.getJST().DayOfWeek);
+            var today = Util.getWeekFromToday(Util.getJST().DayOfWeek);
             if (weeks.Length != 8)
                 return;
 
@@ -73,30 +73,9 @@ namespace io.github.Azukimochi
         }
         public void initDefaultSelectWeekOfDay()
         {
-            var week = getWeekFromToday(Util.getJST().DayOfWeek);
+            var week = Util.getWeekFromToday(Util.getJST().DayOfWeek);
             OnClicked(week);
         }
-        public Week getWeekFromToday(DayOfWeek toDay)
-        {
-            switch (toDay)
-            {
-                case DayOfWeek.Sunday:
-                    return Week.Sunday;
-                case DayOfWeek.Monday:
-                    return Week.Monday;
-                case DayOfWeek.Tuesday:
-                    return Week.Tuesday;
-                case DayOfWeek.Wednesday:
-                    return Week.Wednesday;
-                case DayOfWeek.Thursday:
-                    return Week.Thursday;
-                case DayOfWeek.Friday:
-                    return Week.Friday;
-                case DayOfWeek.Saturday:
-                    return Week.Saturday;
-            }
-
-            return Week.None;
-        }
+        
     }
 }
