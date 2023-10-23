@@ -36,23 +36,23 @@ namespace io.github.Azukimochi
         
 
         //定期実行なのでJSTじゃなくてOK.
-        private DateTime LastUpdate;
+        private DateTime NextUpdateTime;
 
         void Start()
         {
             InitLoadJson();
-            LastUpdate = DateTime.Now;
+            NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
         }
 
         void Update()
         {
-            if (LastUpdate.AddMinutes(_UpdateIntervalMinutes) < DateTime.Now)
+            if (NextUpdateTime < DateTime.Now)
             {
                 Debug.Log($"[TaAG Sys] Update interval {_UpdateIntervalMinutes}min");
                 if (!_isDebug)
                 {
                     _toggleWeeksParent.UpdateWeekFromToday();
-                    LastUpdate = DateTime.Now;
+                    NextUpdateTime = DateTime.Now;
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace io.github.Azukimochi
                         Debug.Log(newValue.ToString(Format));
                         Debug.Log(newValue);
                         _toggleWeeksParent.UpdateWeekFromToday(newValue);
-                        LastUpdate = DateTime.Now;
+                        NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
                     }
                 }
             }
