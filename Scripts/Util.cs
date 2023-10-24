@@ -1,9 +1,5 @@
-﻿
-using System;
+﻿using System;
 using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
 
 namespace io.github.Azukimochi
 {
