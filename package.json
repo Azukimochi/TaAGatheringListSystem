@@ -12,6 +12,6 @@
      "Assets/TaAGatheringListSystem" : "d74e6c55c3c6fde4e9b4093e1cc2b2c4"
   },
   "vpmDependencies" : {
-    "com.vrchat.worlds" : ">=3.2.0",
+    "com.vrchat.worlds" : ">=3.2.0"
   }
 }
