@@ -4,12 +4,15 @@
 [のりちゃんさん](https://github.com/noricha-vr)作成のJSONデータを読み込むことで動的に情報更新を行っています。
 [元データ](https://noricha-vr.github.io/toGithubPagesJson/sample.json)
 
+## イメージ (v 1.0.0)
+![image](https://github.com/Azukimochi/TaAGatheringListSystem/assets/103747350/552de09a-89f7-4982-bd4a-cc046a67f5b2)
+
 ## 設置方法  
 
 **動作条件**
 - VRChat SDK Version 3.2.0 以上 
 
-アセットを[ダウンロード](https://github.com/Azukimochi/TaAGatheringListSystem/releases)して、プロジェクト内に存在するPrefabをワールドに設置してサイズ調整を行ってください
+[VCCにリポジトリを登録](https://azukimochi.github.io/vpm-repos-world/)して、プロジェクト内に存在するPrefabをワールドに設置してサイズ調整を行ってください
 
 ## 情報の更新方法
 元JSONデータが更新されると動的に表示内容が更新されるため設置者側の負担はございません。  
