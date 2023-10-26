@@ -1,0 +1,17 @@
+{
+  "name": "io.github.azukimochi.taa-gathering-list-system",
+  "version": "1.0.0",
+  "displayName": "TaAGatheringListSystem",
+  "description": "TaAGatheringListSystem provides gathering information to VRChat users",
+  "author": {
+    "name": "Azukimochi",
+    "url": "https://github.com/Azukimochi"
+  },
+  "url" : "",
+  "legacyFolders" : {
+     "Assets/TaAGatheringListSystem" : "d74e6c55c3c6fde4e9b4093e1cc2b2c4"
+  },
+  "vpmDependencies" : {
+    "com.vrchat.worlds" : ">=3.2.0",
+  }
+}
