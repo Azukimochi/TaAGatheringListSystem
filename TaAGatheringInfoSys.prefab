@@ -2705,8 +2705,8 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 4481115171083653885}
   parent: {fileID: 4481115171948082599}
   _defaultColor: {r: 0, g: 0, b: 0, a: 1}
-  _selectedColor: {r: 1, g: 0.5518868, b: 0.5518868, a: 1}
-  _todayColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
+  _selectedColor: {r: 1, g: 0.4, b: 0.4, a: 1}
+  _todayColor: {r: 1, g: 0.5529412, b: 0.5529412, a: 1}
 --- !u!114 &4481115171083653885
 MonoBehaviour:
   m_ObjectHideFlags: 0
