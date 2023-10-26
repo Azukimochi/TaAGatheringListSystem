@@ -1468,7 +1468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TaAGatheringInfoSys v1.0.0
+  m_Text: TaAGatheringListSys v1.0.0
 --- !u!1 &2944775872015510718
 GameObject:
   m_ObjectHideFlags: 0
