@@ -34,12 +34,10 @@ namespace io.github.Azukimochi
             {
                 Button button = weeks[i];
                 
-                if (i == (int)today)
-                    button.image.color = _todayColor;
-
-                else if (i == (int)week)
+                if (i == (int)week)
                     button.image.color = _selectedColor;
-                
+                else if (i == (int)today)
+                    button.image.color = _todayColor;
                 else
                     button.image.color = _defaultColor;
             }
