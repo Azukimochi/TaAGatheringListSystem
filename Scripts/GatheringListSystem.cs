@@ -23,6 +23,8 @@ namespace io.github.Azukimochi
         [SerializeField] private InputField _X;
         [SerializeField] private InputField _Tag;
         [SerializeField] private Text _Description;
+        [SerializeField] private Toggle _toggle_Tech;
+        [SerializeField] private Toggle _toggle_Academic;
         
         [Space(height:15)] 
         [SerializeField] int _UpdateIntervalMinutes = 5;
@@ -83,9 +85,9 @@ namespace io.github.Azukimochi
 
         }
 
-        public void SelectWeek(Week week)
+        public void SelectWeek(Week week, bool isForce = false)
         {
-            if (week == _currentWeek)
+            if (week == _currentWeek && !isForce)
                 return;
             _currentWeek = week;
 
@@ -93,8 +95,30 @@ namespace io.github.Azukimochi
             foreach (var obj in _loadedDatas)
             {
                 var info = obj.GetComponent<EventInfo>();
-                obj.SetActive(info.Week == week);
+                if (_toggle_Tech.isOn && info.Genre == EventGenre.Technical)
+                {
+                    obj.SetActive(info.Week == week);
+                    obj.GetComponent<Image>().color = new Color(0.85f, 0.95f, 1.0f);
+                }
+                else if (_toggle_Academic.isOn && info.Genre == EventGenre.Academic)
+                {
+                    obj.SetActive(info.Week == week);
+                    obj.GetComponent<Image>().color = new Color(0.95f, 0.95f, 0.8f);
+                }
+                else if (info.Genre == EventGenre.Other)
+                {
+                    obj.SetActive(info.Week == week);
+                }
+                else
+                {
+                    obj.SetActive(false);
+                }
             }
+        }
+
+        public void changeFilter()
+        {
+            SelectWeek(_currentWeek, true);
         }
 
         public void ShowEventInfo(EventInfo info)
@@ -136,6 +160,22 @@ namespace io.github.Azukimochi
 主催・副主催：{info.Organizers}";
 
                     _loadedDatas[i] = obj;
+                }
+                //デバッグ用
+                if (_isDebug)
+                {
+                    var newArray = new GameObject[_loadedDatas.Length + 1];
+                    Array.Copy(_loadedDatas, newArray, _loadedDatas.Length);
+                    _loadedDatas = newArray;
+                    
+                    var obj = Instantiate(_button, _button.transform.parent);
+                    var info = obj.GetComponent<EventInfo>();
+                    info.Week = Week.Monday;
+                    info.Genre = EventGenre.Academic;
+                    obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} 1億年に一回
+                    デバッグ集会
+                    主催・副主催：誰？";
+                    _loadedDatas[_loadedDatas.Length - 1] = obj;
                 }
 
                 GetComponentInChildren<ToggleWeeksParent>().OnClicked(_initialDisplayWeek);
