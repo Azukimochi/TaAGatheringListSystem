@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define USEDEBUG
+
+using System;
 using System.Data;
 using UdonSharp;
 using UnityEngine;
@@ -28,7 +30,6 @@ namespace io.github.Azukimochi
         
         [Space(height:15)] 
         [SerializeField] int _UpdateIntervalMinutes = 5;
-        [SerializeField] bool _isDebug = false;
         [SerializeField] private string _DebugTime;
         
         private Week _initialDisplayWeek;
@@ -38,25 +39,25 @@ namespace io.github.Azukimochi
         
 
         //定期実行なのでJSTじゃなくてOK.
-        private DateTime LastUpdate;
+        private DateTime NextUpdateTime;
 
         void Start()
         {
             InitLoadJson();
-            LastUpdate = DateTime.Now;
+            NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
         }
 
         void Update()
         {
-            if (LastUpdate.AddMinutes(_UpdateIntervalMinutes) < DateTime.Now)
+            if (NextUpdateTime < DateTime.Now)
             {
                 Debug.Log($"[TaAG Sys] Update interval {_UpdateIntervalMinutes}min");
-                if (!_isDebug)
+#if USEDEBUG
                 {
                     _toggleWeeksParent.UpdateWeekFromToday();
-                    LastUpdate = DateTime.Now;
+                    NextUpdateTime = DateTime.Now;
                 }
-                else
+#else
                 {
                     const string Format = "yyyy-MM-dd HH:mm:ss";
                     DateTime newValue;
@@ -65,24 +66,20 @@ namespace io.github.Azukimochi
                         Debug.Log(newValue.ToString(Format));
                         Debug.Log(newValue);
                         _toggleWeeksParent.UpdateWeekFromToday(newValue);
-                        LastUpdate = DateTime.Now;
+                        NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
                     }
                 }
+#endif
             }
         }
 
         public void InitLoadJson()
         {
-            Debug.Log("load start");
+            Debug.Log("[TaAG Sys] load start");
             VRCStringDownloader.LoadUrl(_URL, this.GetComponent<UdonBehaviour>());
 
             if (String.IsNullOrEmpty(_URL.ToString()))
-                Debug.Log("Error URL is Empty");
-        }
-
-        public override void Interact()
-        {
-
+                Debug.Log("[TaAG Sys] Error URL is Empty");
         }
 
         public void SelectWeek(Week week, bool isForce = false)
@@ -143,7 +140,7 @@ namespace io.github.Azukimochi
         {
             if (VRCJson.TryDeserializeFromJson(result.Result, out var data))
             {
-                Debug.Log("Load Success");
+                Debug.Log("[TaAG Sys] Load Success");
                 _button.SetActive(false);
                 _isLoaded = true;
 
@@ -155,14 +152,12 @@ namespace io.github.Azukimochi
                     var info = obj.GetComponent<EventInfo>();
                     info.Parse(data.DataList[i].DataDictionary);
                     obj.name = info.EventName;
-                    obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} {info.HoldingCycle}
-{info.EventName}
-主催・副主催：{info.Organizers}";
-
+                    obj.GetComponentInChildren<Text>().text = info.StartTime + info.HoldingCycle + "\n" + 
+                                                              info.EventName + "\n" +
+                                                              "主催・副主催：" + info.Organizers;
                     _loadedDatas[i] = obj;
                 }
-                //デバッグ用
-                if (_isDebug)
+#if USEDEBUG
                 {
                     var newArray = new GameObject[_loadedDatas.Length + 1];
                     Array.Copy(_loadedDatas, newArray, _loadedDatas.Length);
@@ -177,13 +172,13 @@ namespace io.github.Azukimochi
                     主催・副主催：誰？";
                     _loadedDatas[_loadedDatas.Length - 1] = obj;
                 }
-
+#endif
                 GetComponentInChildren<ToggleWeeksParent>().OnClicked(_initialDisplayWeek);
                 SelectWeek(Week.Sunday);
             }
             else
             {
-                Debug.Log("Load Failed");
+                Debug.Log("[TaAG Sys] Load Failed");
             }
 
             //ロード完了後に初期表示曜日を設定
@@ -204,7 +199,7 @@ namespace io.github.Azukimochi
 
         public override void OnStringLoadError(IVRCStringDownload result)
         {
-            Debug.Log(result.Error);
+            Debug.Log("[TaAG Sys] " + result.Error);
         }
 
         private void DebugLog(string message)

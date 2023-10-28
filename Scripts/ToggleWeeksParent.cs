@@ -75,23 +75,8 @@ namespace io.github.Azukimochi
         }
         public Week getWeekFromToday(DayOfWeek toDay)
         {
-            switch (toDay)
-            {
-                case DayOfWeek.Sunday:
-                    return Week.Sunday;
-                case DayOfWeek.Monday:
-                    return Week.Monday;
-                case DayOfWeek.Tuesday:
-                    return Week.Tuesday;
-                case DayOfWeek.Wednesday:
-                    return Week.Wednesday;
-                case DayOfWeek.Thursday:
-                    return Week.Thursday;
-                case DayOfWeek.Friday:
-                    return Week.Friday;
-                case DayOfWeek.Saturday:
-                    return Week.Saturday;
-            }
+            if ((int)toDay < 7)
+                return (Week)toDay;
 
             return Week.None;
         }
