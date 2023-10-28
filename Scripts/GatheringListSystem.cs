@@ -80,11 +80,6 @@ namespace io.github.Azukimochi
                 Debug.Log("Error URL is Empty");
         }
 
-        public override void Interact()
-        {
-
-        }
-
         public void SelectWeek(Week week, bool isForce = false)
         {
             if (week == _currentWeek && !isForce)
