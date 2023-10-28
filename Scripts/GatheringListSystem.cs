@@ -150,10 +150,9 @@ namespace io.github.Azukimochi
                     var info = obj.GetComponent<EventInfo>();
                     info.Parse(data.DataList[i].DataDictionary);
                     obj.name = info.EventName;
-                    obj.GetComponentInChildren<Text>().text = $@"{info.StartTime} {info.HoldingCycle}
-{info.EventName}
-主催・副主催：{info.Organizers}";
-
+                    obj.GetComponentInChildren<Text>().text = info.StartTime + info.HoldingCycle + "\n" + 
+                                                              info.EventName + "\n" +
+                                                              "主催・副主催：" + info.Organizers;
                     _loadedDatas[i] = obj;
                 }
                 //デバッグ用
