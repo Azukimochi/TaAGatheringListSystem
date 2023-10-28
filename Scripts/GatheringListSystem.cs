@@ -73,11 +73,11 @@ namespace io.github.Azukimochi
 
         public void InitLoadJson()
         {
-            Debug.Log("load start");
+            Debug.Log("[TaAG Sys] load start");
             VRCStringDownloader.LoadUrl(_URL, this.GetComponent<UdonBehaviour>());
 
             if (String.IsNullOrEmpty(_URL.ToString()))
-                Debug.Log("Error URL is Empty");
+                Debug.Log("[TaAG Sys] Error URL is Empty");
         }
 
         public void SelectWeek(Week week, bool isForce = false)
@@ -138,7 +138,7 @@ namespace io.github.Azukimochi
         {
             if (VRCJson.TryDeserializeFromJson(result.Result, out var data))
             {
-                Debug.Log("Load Success");
+                Debug.Log("[TaAG Sys] Load Success");
                 _button.SetActive(false);
                 _isLoaded = true;
 
@@ -177,7 +177,7 @@ namespace io.github.Azukimochi
             }
             else
             {
-                Debug.Log("Load Failed");
+                Debug.Log("[TaAG Sys] Load Failed");
             }
 
             //ロード完了後に初期表示曜日を設定
@@ -198,7 +198,7 @@ namespace io.github.Azukimochi
 
         public override void OnStringLoadError(IVRCStringDownload result)
         {
-            Debug.Log(result.Error);
+            Debug.Log("[TaAG Sys] " + result.Error);
         }
 
         private void DebugLog(string message)

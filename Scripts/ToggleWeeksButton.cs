@@ -11,7 +11,7 @@ namespace io.github.Azukimochi
 
         public void Pressed()
         {
-            Debug.Log($"ClickedWeek {Week}");
+            Debug.Log($"[TaAG Sys] ClickedWeek {Week}");
             parent.OnClicked(Week);
         }
     }
