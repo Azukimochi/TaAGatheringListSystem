@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define USEDEBUG
+
+using System;
 using System.Data;
 using UdonSharp;
 using UnityEngine;
@@ -28,7 +30,6 @@ namespace io.github.Azukimochi
         
         [Space(height:15)] 
         [SerializeField] int _UpdateIntervalMinutes = 5;
-        [SerializeField] bool _isDebug = false;
         [SerializeField] private string _DebugTime;
         
         private Week _initialDisplayWeek;
@@ -51,12 +52,12 @@ namespace io.github.Azukimochi
             if (NextUpdateTime < DateTime.Now)
             {
                 Debug.Log($"[TaAG Sys] Update interval {_UpdateIntervalMinutes}min");
-                if (!_isDebug)
+#if USEDEBUG
                 {
                     _toggleWeeksParent.UpdateWeekFromToday();
                     NextUpdateTime = DateTime.Now;
                 }
-                else
+#else
                 {
                     const string Format = "yyyy-MM-dd HH:mm:ss";
                     DateTime newValue;
@@ -68,6 +69,7 @@ namespace io.github.Azukimochi
                         NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
                     }
                 }
+#endif
             }
         }
 
@@ -155,8 +157,7 @@ namespace io.github.Azukimochi
                                                               "主催・副主催：" + info.Organizers;
                     _loadedDatas[i] = obj;
                 }
-                //デバッグ用
-                if (_isDebug)
+#if USEDEBUG
                 {
                     var newArray = new GameObject[_loadedDatas.Length + 1];
                     Array.Copy(_loadedDatas, newArray, _loadedDatas.Length);
@@ -171,7 +172,7 @@ namespace io.github.Azukimochi
                     主催・副主催：誰？";
                     _loadedDatas[_loadedDatas.Length - 1] = obj;
                 }
-
+#endif
                 GetComponentInChildren<ToggleWeeksParent>().OnClicked(_initialDisplayWeek);
                 SelectWeek(Week.Sunday);
             }
