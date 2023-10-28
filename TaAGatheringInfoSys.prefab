@@ -1468,7 +1468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TaAGatheringListSys v1.0.0
+  m_Text: TaAGatheringListSys v1.0.1
 --- !u!1 &2944775872015510718
 GameObject:
   m_ObjectHideFlags: 0
@@ -4826,7 +4826,6 @@ MonoBehaviour:
   _toggle_Tech: {fileID: 309379159}
   _toggle_Academic: {fileID: 1036353344}
   _UpdateIntervalMinutes: 15
-  _isDebug: 0
   _DebugTime: 2023-10-19 18:00:00
 --- !u!114 &4481115171948082598
 MonoBehaviour:
