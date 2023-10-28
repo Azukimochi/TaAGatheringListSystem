@@ -7,11 +7,8 @@ namespace io.github.Azukimochi
     {
         public static DateTime getJST()
         {
-            DateTime utc_input = DateTime.UtcNow;
             TimeZoneInfo jstZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
-            DateTime jst = TimeZoneInfo.ConvertTimeFromUtc(utc_input, jstZoneInfo);
-
-            return jst;
+            return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, jstZoneInfo);
         }
     }
 
