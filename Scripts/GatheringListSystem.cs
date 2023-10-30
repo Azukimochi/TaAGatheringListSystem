@@ -16,7 +16,7 @@ namespace io.github.Azukimochi
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class GatheringListSystem : UdonSharpBehaviour
     {
-        [SerializeField] private VRCUrl _URL;
+        [SerializeField] private Settings _settings;
         [SerializeField] private GameObject _button;
         [SerializeField] private ToggleWeeksParent _toggleWeeksParent;
 
@@ -29,8 +29,6 @@ namespace io.github.Azukimochi
         [SerializeField] private Toggle _toggle_Academic;
         
         [Space(height:15)] 
-        [SerializeField] int _UpdateIntervalMinutes = 5;
-        [SerializeField] private string _DebugTime;
         
         private Week _initialDisplayWeek;
         private GameObject[] _loadedDatas;
@@ -44,14 +42,14 @@ namespace io.github.Azukimochi
         void Start()
         {
             InitLoadJson();
-            NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
+            NextUpdateTime = DateTime.Now.AddMinutes(_settings._UpdateIntervalMinutes);
         }
 
         void Update()
         {
             if (NextUpdateTime < DateTime.Now)
             {
-                Debug.Log($"[TaAG Sys] Update interval {_UpdateIntervalMinutes}min");
+                Debug.Log($"[TaAG Sys] Update interval {_settings._UpdateIntervalMinutes}min");
 #if USEDEBUG
                 {
                     _toggleWeeksParent.UpdateWeekFromToday();
@@ -61,12 +59,12 @@ namespace io.github.Azukimochi
                 {
                     const string Format = "yyyy-MM-dd HH:mm:ss";
                     DateTime newValue;
-                    if (DateTime.TryParse(_DebugTime, out newValue))
+                    if (DateTime.TryParse(_settings._DebugTime, out newValue))
                     {
                         Debug.Log(newValue.ToString(Format));
                         Debug.Log(newValue);
                         _toggleWeeksParent.UpdateWeekFromToday(newValue);
-                        NextUpdateTime = DateTime.Now.AddMinutes(_UpdateIntervalMinutes);
+                        NextUpdateTime = DateTime.Now.AddMinutes(_settings._UpdateIntervalMinutes);
                     }
                 }
 #endif
@@ -76,9 +74,9 @@ namespace io.github.Azukimochi
         public void InitLoadJson()
         {
             Debug.Log("[TaAG Sys] load start");
-            VRCStringDownloader.LoadUrl(_URL, this.GetComponent<UdonBehaviour>());
+            VRCStringDownloader.LoadUrl(_settings._URL, this.GetComponent<UdonBehaviour>());
 
-            if (String.IsNullOrEmpty(_URL.ToString()))
+            if (String.IsNullOrEmpty(_settings._URL.ToString()))
                 Debug.Log("[TaAG Sys] Error URL is Empty");
         }
 
