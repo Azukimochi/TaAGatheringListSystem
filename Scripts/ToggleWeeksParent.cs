@@ -10,10 +10,7 @@ namespace io.github.Azukimochi
     {
         private Button[] weeks;
         [SerializeField] private GatheringListSystem parent;
-
-        [SerializeField] private Color _defaultColor = Color.black;
-        [SerializeField] private Color _selectedColor = Color.gray;
-        [SerializeField] private Color _todayColor = new Color(0.3f, 0.3f, 0.3f);
+        [SerializeField] private Settings _settings;
 
         private Week selectedWeek = Week.None;
 
@@ -35,11 +32,11 @@ namespace io.github.Azukimochi
                 Button button = weeks[i];
                 
                 if (i == (int)week)
-                    button.image.color = _selectedColor;
+                    button.image.color = _settings._selectedColor;
                 else if (i == (int)today)
-                    button.image.color = _todayColor;
+                    button.image.color = _settings._todayColor;
                 else
-                    button.image.color = _defaultColor;
+                    button.image.color = _settings._defaultColor;
             }
             parent.SelectWeek(week);
         }
@@ -59,13 +56,13 @@ namespace io.github.Azukimochi
                 Button button = weeks[i];
                 
                 if (i == (int)today)
-                    button.image.color = _todayColor;
+                    button.image.color = _settings._todayColor;
 
                 else if (i == (int)selectedWeek)
-                    button.image.color = _selectedColor;
+                    button.image.color = _settings._selectedColor;
                 
                 else
-                    button.image.color = _defaultColor;
+                    button.image.color = _settings._defaultColor;
             }
         }
         public void initDefaultSelectWeekOfDay()
