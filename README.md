@@ -20,6 +20,11 @@
 （Prefab直下 MainオブジェクトのGathering List System スクリプトの URL欄が取得元リンクに対応しています)
 
 ## Credit
+本アセットはMITライセンスのもと作成しています。
+
+フォントにMPLUS-Fontsを使用しています。  
+ライセンス原文：https://github.com/coz-m/MPLUS_FONTS/blob/master/OFL.txt
+
 **開発元　個人開発者集会運営・スタッフ** 
 
 アセット作成・公開  

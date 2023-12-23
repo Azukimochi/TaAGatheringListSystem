@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: FilterButton
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: e26c60383928812488a4a9160f2eb537,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: b03e05a39fac327479b87c86e1f346d3,
     type: 2}
   udonAssembly: 
   assemblyError: 
